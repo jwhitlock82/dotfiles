@@ -1,0 +1,53 @@
+export ZSH=${ZSH:-/usr/local/share/oh-my-zsh}
+export ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+
+[[ -r ~/.zshrc.local.before ]] && source ~/.zshrc.local.before
+
+# Must stay near the top: Powerlevel10k uses this cache before the full shell loads.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+ZSH_THEME=powerlevel10k/powerlevel10k
+plugins=(
+	git
+	aws
+	ansible
+	docker
+	history
+	encode64
+	zsh-autosuggestions
+	gcloud
+	kubectl
+	kubecolor
+	opentofu
+	terraform
+	terragrunt
+	helm
+	fluxcd
+	zsh-syntax-highlighting
+)
+source "$ZSH/oh-my-zsh.sh"
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' insert-tab pending
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+command -v flux >/dev/null && source <(flux completion zsh)
+command -v kubectl >/dev/null && source <(kubectl completion zsh)
+command -v helm >/dev/null && source <(helm completion zsh)
+
+alias tf=tofu
+alias k=kubectl
+alias gs='git status'
+alias gd='git diff'
+alias gco='git checkout'
+alias d='docker'
+alias dps='docker ps'
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

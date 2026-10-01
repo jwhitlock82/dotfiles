@@ -1,0 +1,17 @@
+[init]
+	defaultBranch = main
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[color]
+	ui = auto
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+[alias]
+	co = checkout
+	st = status --short --branch
+	last = log -1 --stat
+	up = pull --rebase --autostash
+[include]
+	path = ~/.gitconfig.local

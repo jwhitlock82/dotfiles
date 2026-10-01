@@ -1,0 +1,2 @@
+# Private environment exports available to every Zsh process belong here.
+[[ -r ~/.localenv ]] && source ~/.localenv

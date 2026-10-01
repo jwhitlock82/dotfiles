@@ -1,0 +1,11 @@
+# Authentication and machine-local state
+.aws/credentials
+.gitconfig.local
+.localenv
+.zshrc.local.before
+.zshrc.local
+.local/
+.cache/
+
+# Zsh completion cache
+.zcompdump*
